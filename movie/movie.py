@@ -9,7 +9,7 @@ class MovieServicer(movie_pb2_grpc.MovieServicer):
 
     def __init__(self):
         with open('{}/data/movies.json'.format("."), "r") as jsf:
-            self.db = json.load(jsf)["movies"]
+            self.db:list[str] = json.load(jsf)["movies"]
 
     def GetMovieByID(self, request, context):
         for movie in self.db:
@@ -21,6 +21,13 @@ class MovieServicer(movie_pb2_grpc.MovieServicer):
     def GetListMovies(self, request, context):
         for movie in self.db:
             yield movie_pb2.MovieData(title=movie['title'], rating=movie['rating'], director=movie['director'], id=movie['id'])
+    
+    def GetMoviesByTitle(self, request, context):
+        title:str = (request.title).lower()
+        for movie in self.db:
+            if movie['title'].lower().__contains__(request.title) :
+                yield movie_pb2.MovieData(title=movie['title'], rating=movie['rating'], director=movie['director'],id=movie['id'])
+
 
 
 def serve():
