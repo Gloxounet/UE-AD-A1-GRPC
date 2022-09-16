@@ -4,6 +4,7 @@ service Movie {
     rpc GetMovieByID(MovieID) returns (MovieData) {}
     rpc GetListMovies(Empty) returns (stream MovieData) {}
     rpc GetMoviesByTitle(MovieTitle) returns (stream MovieData) {}
+    rpc GetMoviesByDirector(MovieDirector) returns (stream MovieData) {}
 }
 
 message MovieID {
@@ -12,6 +13,10 @@ message MovieID {
 
 message MovieTitle {
     string title = 1;
+}
+
+message MovieDirector {
+    string director = 1;
 }
 
 message MovieData {

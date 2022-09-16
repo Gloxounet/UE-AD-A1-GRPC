@@ -25,10 +25,14 @@ class MovieServicer(movie_pb2_grpc.MovieServicer):
     def GetMoviesByTitle(self, request, context):
         title:str = (request.title).lower()
         for movie in self.db:
-            if movie['title'].lower().__contains__(request.title) :
+            if movie['title'].lower().__contains__(title) :
                 yield movie_pb2.MovieData(title=movie['title'], rating=movie['rating'], director=movie['director'],id=movie['id'])
 
-
+    def GetMoviesByDirector(self, request, context):
+        director:str = (request.director).lower()
+        for movie in self.db:
+            if movie['director'].lower().__contains__(director) :
+                yield movie_pb2.MovieData(title=movie['title'], rating=movie['rating'], director=movie['director'],id=movie['id'])
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

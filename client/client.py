@@ -19,6 +19,11 @@ def get_movies_by_title(stub:movie_pb2_grpc.MovieStub,title):
     for movie in movies :
         print(f"Found {movie}")
 
+def get_movies_by_director(stub:movie_pb2_grpc.MovieStub,director):
+    movies = stub.GetMoviesByDirector(director)
+    for movie in movies :
+        print(f"Found {movie}")
+
 def run():
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs
@@ -36,7 +41,13 @@ def run():
         print("-------------- GetMoviesByTitle --------------")
         title = movie_pb2.MovieTitle(title="creed")
         get_movies_by_title(stub,title)
+
+        print("-------------- GetMoviesByDirector --------------")
+        director = movie_pb2.MovieDirector(director="ridley")
+        get_movies_by_director(stub,director)
+
         channel.close()
+
 
 
 if __name__ == '__main__':
