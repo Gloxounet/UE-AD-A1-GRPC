@@ -3,6 +3,9 @@ import grpc
 import movie_pb2
 import movie_pb2_grpc
 
+import booking_pb2
+import booking_pb2_grpc
+
 
 def get_movie_by_id(stub:movie_pb2_grpc.MovieStub, id):
     movie = stub.GetMovieByID(id)
