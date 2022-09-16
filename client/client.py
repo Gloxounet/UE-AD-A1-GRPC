@@ -6,7 +6,7 @@ import movie_pb2_grpc
 import booking_pb2
 import booking_pb2_grpc
 
-
+#MOVIES
 def get_movie_by_id(stub:movie_pb2_grpc.MovieStub, id):
     movie = stub.GetMovieByID(id)
     print(movie)
@@ -51,7 +51,20 @@ def run():
 
         channel.close()
 
+#BOOKINGS
+def get_booking_by_userId(stub:booking_pb2_grpc.BookingStub,userId):
+    booking = stub.GetBookingByUserId(userId)
+    print(booking)
 
+def run2():
+    with grpc.insecure_channel('localhost:3002') as channel:
+        stub = booking_pb2_grpc.BookingStub(channel)
+        
+        print("-------------- GetBookingById --------------")
+        userId = booking_pb2.UserID(id="dwight_schrute")
+        get_booking_by_userId(stub=stub,userId=userId)
+
+        channel.close()
 
 if __name__ == '__main__':
-    run()
+    run2()

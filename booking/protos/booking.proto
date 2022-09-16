@@ -1,7 +1,8 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
 
 service Booking {
-    rpc GetAllBookings(Empty) returns (stream BookingData) {}
+    rpc GetAllBookings(google.protobuf.Empty) returns (stream BookingData) {}
     rpc GetBookingByUserId(UserID) returns (BookingData) {}
 }
 
@@ -11,13 +12,10 @@ message UserID {
 
 message BookingData {
     string userId = 1;
-    DateItem date = 2;
+    repeated DateItem date = 2;
 }
 
 message DateItem {
     string date = 1;
-    string movieId = 2;
-}
-
-message Empty {
+    repeated string moviesId = 2;
 }
