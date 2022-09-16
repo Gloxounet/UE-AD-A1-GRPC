@@ -4,7 +4,6 @@ import movie_pb2
 import movie_pb2_grpc
 import json
 
-
 class MovieServicer(movie_pb2_grpc.MovieServicer):
 
     def __init__(self):
