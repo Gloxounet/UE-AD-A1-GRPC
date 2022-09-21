@@ -18,3 +18,5 @@ for %%d in (base) do (
     REM Copie des dépendances dans le client
     python -m grpc_tools.protoc -I=./protos --python_out=./client/ --grpc_python_out=./client/ %%d.proto
 )
+
+echo Handling custom dependecies...
