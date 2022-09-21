@@ -1,7 +1,7 @@
 import grpc
 from concurrent import futures
-import movie_pb2
-import movie_pb2_grpc
+import pb2.movie_pb2 as movie_pb2
+import pb2.movie_pb2_grpc as movie_pb2_grpc
 import json
 
 class MovieServicer(movie_pb2_grpc.MovieServicer):
