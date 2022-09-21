@@ -7,7 +7,7 @@ from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
 class BookingStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Missing associated documentation comment in .protos file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -28,16 +28,16 @@ class BookingStub(object):
 
 
 class BookingServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Missing associated documentation comment in .protos file."""
 
     def GetAllBookings(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Missing associated documentation comment in .protos file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetBookingByUserId(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Missing associated documentation comment in .protos file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -63,7 +63,7 @@ def add_BookingServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Booking(object):
-    """Missing associated documentation comment in .proto file."""
+    """Missing associated documentation comment in .protos file."""
 
     @staticmethod
     def GetAllBookings(request,

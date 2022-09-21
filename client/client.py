@@ -6,6 +6,9 @@ import movie_pb2_grpc
 import booking_pb2
 import booking_pb2_grpc
 
+import showtime_pb2
+import showtime_pb2_grpc
+
 #MOVIES
 def get_movie_by_id(stub:movie_pb2_grpc.MovieStub, id):
     movie = stub.GetMovieByID(id)
@@ -66,5 +69,21 @@ def run2():
 
         channel.close()
 
+
+def get_movies_by_date(stub, date):
+    movies = stub.GetMoviesByDate(date)
+    print(movies)
+
+
+def run3():
+    with grpc.insecure_channel('localhost:3003') as channel:
+        stub = showtime_pb2_grpc.ShowtimeStub(channel)
+
+        print("-------------- GetMoviesByDate --------------")
+        date = showtime_pb2.Date(date="20151202")
+        get_movies_by_date(stub=stub, date=date)
+
+        channel.close()
+
 if __name__ == '__main__':
-    run2()
+    run3()

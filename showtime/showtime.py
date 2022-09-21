@@ -14,18 +14,24 @@ class ShowtimeServicer(showtime_pb2_grpc.ShowtimeServicer):
         for date in self.db:
             if date['date'] == request.date:
                 print("Date found!")
-                return showtime_pb2.Schedule(date=date['date'], movie=date['movies'])
+                schedule = showtime_pb2.Schedule(date=date["date"])
+                schedule.movies.extend(date['movies'])
+                return schedule
         return showtime_pb2.Schedule(date="", movie="")
 
     def GetTimes(self, request, context):
         for date in self.db:
+            schedule = showtime_pb2.Schedule()
+
+            schedule.movies.extend(date['movies'])
+            yield schedule
             yield showtime_pb2.Schedule(date=date['date'], movie=date['movies'])
 
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     showtime_pb2_grpc.add_ShowtimeServicer_to_server(ShowtimeServicer(), server)
-    server.add_insecure_port('[::]:3002')
+    server.add_insecure_port('[::]:3003')
     server.start()
     server.wait_for_termination()
 

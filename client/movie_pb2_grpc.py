@@ -6,7 +6,7 @@ import movie_pb2 as movie__pb2
 
 
 class MovieStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Missing associated documentation comment in .protos file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -37,28 +37,28 @@ class MovieStub(object):
 
 
 class MovieServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Missing associated documentation comment in .protos file."""
 
     def GetMovieByID(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Missing associated documentation comment in .protos file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetListMovies(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Missing associated documentation comment in .protos file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetMoviesByTitle(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Missing associated documentation comment in .protos file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetMoviesByDirector(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Missing associated documentation comment in .protos file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -94,7 +94,7 @@ def add_MovieServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Movie(object):
-    """Missing associated documentation comment in .proto file."""
+    """Missing associated documentation comment in .protos file."""
 
     @staticmethod
     def GetMovieByID(request,
