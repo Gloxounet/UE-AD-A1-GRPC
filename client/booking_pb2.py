@@ -12,16 +12,16 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rbooking.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x14\n\x06UserID\x12\n\n\x02id\x18\x01 \x01(\t\"6\n\x0b\x42ookingData\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x17\n\x04\x64\x61te\x18\x02 \x03(\x0b\x32\t.DateItem\"*\n\x08\x44\x61teItem\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x10\n\x08moviesId\x18\x02 \x03(\t2t\n\x07\x42ooking\x12:\n\x0eGetAllBookings\x12\x16.google.protobuf.Empty\x1a\x0c.BookingData\"\x00\x30\x01\x12-\n\x12GetBookingByUserId\x12\x07.UserID\x1a\x0c.BookingData\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rbooking.proto\"\x14\n\x06UserID\x12\n\n\x02id\x18\x01 \x01(\t\"6\n\x0b\x42ookingData\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x17\n\x04\x64\x61te\x18\x02 \x03(\x0b\x32\t.DateItem\"*\n\x08\x44\x61teItem\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x10\n\x08moviesId\x18\x02 \x03(\t\"\x0e\n\x0c\x45mptyBooking2k\n\x07\x42ooking\x12\x31\n\x0eGetAllBookings\x12\r.EmptyBooking\x1a\x0c.BookingData\"\x00\x30\x01\x12-\n\x12GetBookingByUserId\x12\x07.UserID\x1a\x0c.BookingData\"\x00\x62\x06proto3')
 
 
 
 _USERID = DESCRIPTOR.message_types_by_name['UserID']
 _BOOKINGDATA = DESCRIPTOR.message_types_by_name['BookingData']
 _DATEITEM = DESCRIPTOR.message_types_by_name['DateItem']
+_EMPTYBOOKING = DESCRIPTOR.message_types_by_name['EmptyBooking']
 UserID = _reflection.GeneratedProtocolMessageType('UserID', (_message.Message,), {
   'DESCRIPTOR' : _USERID,
   '__module__' : 'booking_pb2'
@@ -43,16 +43,25 @@ DateItem = _reflection.GeneratedProtocolMessageType('DateItem', (_message.Messag
   })
 _sym_db.RegisterMessage(DateItem)
 
+EmptyBooking = _reflection.GeneratedProtocolMessageType('EmptyBooking', (_message.Message,), {
+  'DESCRIPTOR' : _EMPTYBOOKING,
+  '__module__' : 'booking_pb2'
+  # @@protoc_insertion_point(class_scope:EmptyBooking)
+  })
+_sym_db.RegisterMessage(EmptyBooking)
+
 _BOOKING = DESCRIPTOR.services_by_name['Booking']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _USERID._serialized_start=46
-  _USERID._serialized_end=66
-  _BOOKINGDATA._serialized_start=68
-  _BOOKINGDATA._serialized_end=122
-  _DATEITEM._serialized_start=124
-  _DATEITEM._serialized_end=166
-  _BOOKING._serialized_start=168
-  _BOOKING._serialized_end=284
+  _USERID._serialized_start=17
+  _USERID._serialized_end=37
+  _BOOKINGDATA._serialized_start=39
+  _BOOKINGDATA._serialized_end=93
+  _DATEITEM._serialized_start=95
+  _DATEITEM._serialized_end=137
+  _EMPTYBOOKING._serialized_start=139
+  _EMPTYBOOKING._serialized_end=153
+  _BOOKING._serialized_start=155
+  _BOOKING._serialized_end=262
 # @@protoc_insertion_point(module_scope)
