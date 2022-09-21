@@ -2,8 +2,9 @@
 
 for %%t in (user, booking, showtime, movie) do (
     echo Handling %%t...
-    python -m grpc_tools.protoc -I=./protos --python_out=./%%t/ --grpc_python_out=./%%t/ %%t.proto
-    copy /y ".\%%t\%%t_pb2_grpc.py" ".\client"
-    copy /y ".\%%t\%%t_pb2.py" ".\client"
+    if not exist ".\%%t\pb2" mkdir .\%%t\pb2
+    python -m grpc_tools.protoc -I=./protos --python_out=./%%t/pb2/ --grpc_python_out=./%%t/pb2/ %%t.proto
+    copy /y ".\%%t\pb2\%%t_pb2_grpc.py" ".\client"
+    copy /y ".\%%t\pb2\%%t_pb2.py" ".\client"
 )
 echo done.
