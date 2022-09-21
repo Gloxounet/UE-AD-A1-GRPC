@@ -2,11 +2,13 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+import base_pb2 as base__pb2
+import movie_pb2 as movie__pb2
 import showtime_pb2 as showtime__pb2
 
 
 class ShowtimeStub(object):
-    """Missing associated documentation comment in .protos file."""
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -21,22 +23,22 @@ class ShowtimeStub(object):
                 )
         self.GetTimes = channel.unary_stream(
                 '/Showtime/GetTimes',
-                request_serializer=showtime__pb2.EmptySchedule.SerializeToString,
-                response_deserializer=showtime__pb2.MovieSchedule.FromString,
+                request_serializer=base__pb2.Empty.SerializeToString,
+                response_deserializer=movie__pb2.MovieID.FromString,
                 )
 
 
 class ShowtimeServicer(object):
-    """Missing associated documentation comment in .protos file."""
+    """Missing associated documentation comment in .proto file."""
 
     def GetMoviesByDate(self, request, context):
-        """Missing associated documentation comment in .protos file."""
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetTimes(self, request, context):
-        """Missing associated documentation comment in .protos file."""
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -51,8 +53,8 @@ def add_ShowtimeServicer_to_server(servicer, server):
             ),
             'GetTimes': grpc.unary_stream_rpc_method_handler(
                     servicer.GetTimes,
-                    request_deserializer=showtime__pb2.EmptySchedule.FromString,
-                    response_serializer=showtime__pb2.MovieSchedule.SerializeToString,
+                    request_deserializer=base__pb2.Empty.FromString,
+                    response_serializer=movie__pb2.MovieID.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,7 +64,7 @@ def add_ShowtimeServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Showtime(object):
-    """Missing associated documentation comment in .protos file."""
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def GetMoviesByDate(request,
@@ -93,7 +95,7 @@ class Showtime(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Showtime/GetTimes',
-            showtime__pb2.EmptySchedule.SerializeToString,
-            showtime__pb2.MovieSchedule.FromString,
+            base__pb2.Empty.SerializeToString,
+            movie__pb2.MovieID.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

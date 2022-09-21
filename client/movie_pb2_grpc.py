@@ -2,11 +2,12 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+import base_pb2 as base__pb2
 import movie_pb2 as movie__pb2
 
 
 class MovieStub(object):
-    """Missing associated documentation comment in .protos file."""
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -21,7 +22,7 @@ class MovieStub(object):
                 )
         self.GetListMovies = channel.unary_stream(
                 '/Movie/GetListMovies',
-                request_serializer=movie__pb2.Empty.SerializeToString,
+                request_serializer=base__pb2.Empty.SerializeToString,
                 response_deserializer=movie__pb2.MovieData.FromString,
                 )
         self.GetMoviesByTitle = channel.unary_stream(
@@ -37,28 +38,28 @@ class MovieStub(object):
 
 
 class MovieServicer(object):
-    """Missing associated documentation comment in .protos file."""
+    """Missing associated documentation comment in .proto file."""
 
     def GetMovieByID(self, request, context):
-        """Missing associated documentation comment in .protos file."""
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetListMovies(self, request, context):
-        """Missing associated documentation comment in .protos file."""
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetMoviesByTitle(self, request, context):
-        """Missing associated documentation comment in .protos file."""
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetMoviesByDirector(self, request, context):
-        """Missing associated documentation comment in .protos file."""
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -73,7 +74,7 @@ def add_MovieServicer_to_server(servicer, server):
             ),
             'GetListMovies': grpc.unary_stream_rpc_method_handler(
                     servicer.GetListMovies,
-                    request_deserializer=movie__pb2.Empty.FromString,
+                    request_deserializer=base__pb2.Empty.FromString,
                     response_serializer=movie__pb2.MovieData.SerializeToString,
             ),
             'GetMoviesByTitle': grpc.unary_stream_rpc_method_handler(
@@ -94,7 +95,7 @@ def add_MovieServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Movie(object):
-    """Missing associated documentation comment in .protos file."""
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def GetMovieByID(request,
@@ -125,7 +126,7 @@ class Movie(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Movie/GetListMovies',
-            movie__pb2.Empty.SerializeToString,
+            base__pb2.Empty.SerializeToString,
             movie__pb2.MovieData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
