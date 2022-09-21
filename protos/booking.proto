@@ -1,13 +1,10 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
+import "base.proto";
+import "user.proto";
 
 service Booking {
-    rpc GetAllBookings(google.protobuf.Empty) returns (stream BookingData) {}
+    rpc GetAllBookings(Empty) returns (stream BookingData) {}
     rpc GetBookingByUserId(UserID) returns (BookingData) {}
-}
-
-message UserID {
-    string id = 1;
 }
 
 message BookingData {
