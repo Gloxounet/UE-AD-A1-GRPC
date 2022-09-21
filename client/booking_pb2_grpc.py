@@ -3,7 +3,6 @@
 import grpc
 
 import booking_pb2 as booking__pb2
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
 class BookingStub(object):
@@ -17,7 +16,7 @@ class BookingStub(object):
         """
         self.GetAllBookings = channel.unary_stream(
                 '/Booking/GetAllBookings',
-                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                request_serializer=booking__pb2.EmptyBooking.SerializeToString,
                 response_deserializer=booking__pb2.BookingData.FromString,
                 )
         self.GetBookingByUserId = channel.unary_unary(
@@ -47,7 +46,7 @@ def add_BookingServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetAllBookings': grpc.unary_stream_rpc_method_handler(
                     servicer.GetAllBookings,
-                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    request_deserializer=booking__pb2.EmptyBooking.FromString,
                     response_serializer=booking__pb2.BookingData.SerializeToString,
             ),
             'GetBookingByUserId': grpc.unary_unary_rpc_method_handler(
@@ -77,7 +76,7 @@ class Booking(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Booking/GetAllBookings',
-            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            booking__pb2.EmptyBooking.SerializeToString,
             booking__pb2.BookingData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

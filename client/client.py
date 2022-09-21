@@ -59,6 +59,11 @@ def get_booking_by_userId(stub:booking_pb2_grpc.BookingStub,userId):
     booking = stub.GetBookingByUserId(userId)
     print(booking)
 
+def get_list_bookings(stub:booking_pb2_grpc.BookingStub):
+    bookings = stub.GetAllBookings(booking_pb2.EmptyBooking())
+    for booking in bookings:
+        print("Booking from %s" % (booking.userId))
+
 def run2():
     with grpc.insecure_channel('localhost:3002') as channel:
         stub = booking_pb2_grpc.BookingStub(channel)
@@ -66,6 +71,12 @@ def run2():
         print("-------------- GetBookingById --------------")
         userId = booking_pb2.UserID(id="dwight_schrute")
         get_booking_by_userId(stub=stub,userId=userId)
+
+                
+        print("-------------- GetListBookings --------------")
+        get_list_bookings(stub=stub)
+
+
 
         channel.close()
 
