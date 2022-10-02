@@ -1,13 +1,13 @@
 import grpc
 
-import movie_pb2
-import movie_pb2_grpc
+from protos import movie_pb2
+from protos import movie_pb2_grpc
 
-import booking_pb2
-import booking_pb2_grpc
+from protos import booking_pb2
+from protos import booking_pb2_grpc
 
-import showtime_pb2
-import showtime_pb2_grpc
+from protos import showtime_pb2
+from protos import showtime_pb2_grpc
 
 #MOVIES
 def get_movie_by_id(stub:movie_pb2_grpc.MovieStub, id):

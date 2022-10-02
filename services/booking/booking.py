@@ -1,7 +1,7 @@
 import grpc
 from concurrent import futures
-import booking_pb2
-import booking_pb2_grpc
+from protos import booking_pb2
+from protos import booking_pb2_grpc
 import json
 
 EMPTY_BOOKING = {

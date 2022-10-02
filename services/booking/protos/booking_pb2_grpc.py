@@ -2,11 +2,12 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import base_pb2 as base__pb2
-import user_pb2 as user__pb2
+from protos import base_pb2 as protos_dot_base__pb2
+from protos import booking_pb2 as protos_dot_booking__pb2
+from protos import user_pb2 as protos_dot_user__pb2
 
 
-class UserStub(object):
+class BookingStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,58 +16,58 @@ class UserStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetAllUsers = channel.unary_stream(
-                '/User/GetAllUsers',
-                request_serializer=base__pb2.Empty.SerializeToString,
-                response_deserializer=user__pb2.UserItem.FromString,
+        self.GetAllBookings = channel.unary_stream(
+                '/Booking/GetAllBookings',
+                request_serializer=protos_dot_base__pb2.Empty.SerializeToString,
+                response_deserializer=protos_dot_booking__pb2.BookingData.FromString,
                 )
-        self.GetUserById = channel.unary_unary(
-                '/User/GetUserById',
-                request_serializer=user__pb2.UserID.SerializeToString,
-                response_deserializer=user__pb2.UserItem.FromString,
+        self.GetBookingByUserId = channel.unary_unary(
+                '/Booking/GetBookingByUserId',
+                request_serializer=protos_dot_user__pb2.UserID.SerializeToString,
+                response_deserializer=protos_dot_booking__pb2.BookingData.FromString,
                 )
 
 
-class UserServicer(object):
+class BookingServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetAllUsers(self, request, context):
+    def GetAllBookings(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetUserById(self, request, context):
+    def GetBookingByUserId(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_UserServicer_to_server(servicer, server):
+def add_BookingServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetAllUsers': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetAllUsers,
-                    request_deserializer=base__pb2.Empty.FromString,
-                    response_serializer=user__pb2.UserItem.SerializeToString,
+            'GetAllBookings': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetAllBookings,
+                    request_deserializer=protos_dot_base__pb2.Empty.FromString,
+                    response_serializer=protos_dot_booking__pb2.BookingData.SerializeToString,
             ),
-            'GetUserById': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetUserById,
-                    request_deserializer=user__pb2.UserID.FromString,
-                    response_serializer=user__pb2.UserItem.SerializeToString,
+            'GetBookingByUserId': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBookingByUserId,
+                    request_deserializer=protos_dot_user__pb2.UserID.FromString,
+                    response_serializer=protos_dot_booking__pb2.BookingData.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'User', rpc_method_handlers)
+            'Booking', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class User(object):
+class Booking(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetAllUsers(request,
+    def GetAllBookings(request,
             target,
             options=(),
             channel_credentials=None,
@@ -76,14 +77,14 @@ class User(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/User/GetAllUsers',
-            base__pb2.Empty.SerializeToString,
-            user__pb2.UserItem.FromString,
+        return grpc.experimental.unary_stream(request, target, '/Booking/GetAllBookings',
+            protos_dot_base__pb2.Empty.SerializeToString,
+            protos_dot_booking__pb2.BookingData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetUserById(request,
+    def GetBookingByUserId(request,
             target,
             options=(),
             channel_credentials=None,
@@ -93,8 +94,8 @@ class User(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/User/GetUserById',
-            user__pb2.UserID.SerializeToString,
-            user__pb2.UserItem.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Booking/GetBookingByUserId',
+            protos_dot_user__pb2.UserID.SerializeToString,
+            protos_dot_booking__pb2.BookingData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

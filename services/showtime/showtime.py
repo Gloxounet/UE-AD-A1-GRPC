@@ -1,7 +1,7 @@
 import grpc
 from concurrent import futures
-import pb2.showtime_pb2 as showtime_pb2
-import pb2.showtime_pb2_grpc as showtime_pb2_grpc
+from protos import showtime_pb2
+from protos import showtime_pb2_grpc
 import json
 
 class ShowtimeServicer(showtime_pb2_grpc.ShowtimeServicer):

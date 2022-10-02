@@ -2,8 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import base_pb2 as base__pb2
-import user_pb2 as user__pb2
+from protos import base_pb2 as protos_dot_base__pb2
+from protos import user_pb2 as protos_dot_user__pb2
 
 
 class UserStub(object):
@@ -17,13 +17,13 @@ class UserStub(object):
         """
         self.GetAllUsers = channel.unary_stream(
                 '/User/GetAllUsers',
-                request_serializer=base__pb2.Empty.SerializeToString,
-                response_deserializer=user__pb2.UserItem.FromString,
+                request_serializer=protos_dot_base__pb2.Empty.SerializeToString,
+                response_deserializer=protos_dot_user__pb2.UserItem.FromString,
                 )
         self.GetUserById = channel.unary_unary(
                 '/User/GetUserById',
-                request_serializer=user__pb2.UserID.SerializeToString,
-                response_deserializer=user__pb2.UserItem.FromString,
+                request_serializer=protos_dot_user__pb2.UserID.SerializeToString,
+                response_deserializer=protos_dot_user__pb2.UserItem.FromString,
                 )
 
 
@@ -47,13 +47,13 @@ def add_UserServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetAllUsers': grpc.unary_stream_rpc_method_handler(
                     servicer.GetAllUsers,
-                    request_deserializer=base__pb2.Empty.FromString,
-                    response_serializer=user__pb2.UserItem.SerializeToString,
+                    request_deserializer=protos_dot_base__pb2.Empty.FromString,
+                    response_serializer=protos_dot_user__pb2.UserItem.SerializeToString,
             ),
             'GetUserById': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserById,
-                    request_deserializer=user__pb2.UserID.FromString,
-                    response_serializer=user__pb2.UserItem.SerializeToString,
+                    request_deserializer=protos_dot_user__pb2.UserID.FromString,
+                    response_serializer=protos_dot_user__pb2.UserItem.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -77,8 +77,8 @@ class User(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/User/GetAllUsers',
-            base__pb2.Empty.SerializeToString,
-            user__pb2.UserItem.FromString,
+            protos_dot_base__pb2.Empty.SerializeToString,
+            protos_dot_user__pb2.UserItem.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -94,7 +94,7 @@ class User(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/User/GetUserById',
-            user__pb2.UserID.SerializeToString,
-            user__pb2.UserItem.FromString,
+            protos_dot_user__pb2.UserID.SerializeToString,
+            protos_dot_user__pb2.UserItem.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

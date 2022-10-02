@@ -2,12 +2,12 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import base_pb2 as base__pb2
-import booking_pb2 as booking__pb2
-import user_pb2 as user__pb2
+from protos import base_pb2 as protos_dot_base__pb2
+from protos import movie_pb2 as protos_dot_movie__pb2
+from protos import showtime_pb2 as protos_dot_showtime__pb2
 
 
-class BookingStub(object):
+class ShowtimeStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -16,58 +16,58 @@ class BookingStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetAllBookings = channel.unary_stream(
-                '/Booking/GetAllBookings',
-                request_serializer=base__pb2.Empty.SerializeToString,
-                response_deserializer=booking__pb2.BookingData.FromString,
+        self.GetMoviesByDate = channel.unary_unary(
+                '/Showtime/GetMoviesByDate',
+                request_serializer=protos_dot_showtime__pb2.Date.SerializeToString,
+                response_deserializer=protos_dot_showtime__pb2.Schedule.FromString,
                 )
-        self.GetBookingByUserId = channel.unary_unary(
-                '/Booking/GetBookingByUserId',
-                request_serializer=user__pb2.UserID.SerializeToString,
-                response_deserializer=booking__pb2.BookingData.FromString,
+        self.GetTimes = channel.unary_stream(
+                '/Showtime/GetTimes',
+                request_serializer=protos_dot_base__pb2.Empty.SerializeToString,
+                response_deserializer=protos_dot_movie__pb2.MovieID.FromString,
                 )
 
 
-class BookingServicer(object):
+class ShowtimeServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetAllBookings(self, request, context):
+    def GetMoviesByDate(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetBookingByUserId(self, request, context):
+    def GetTimes(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_BookingServicer_to_server(servicer, server):
+def add_ShowtimeServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetAllBookings': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetAllBookings,
-                    request_deserializer=base__pb2.Empty.FromString,
-                    response_serializer=booking__pb2.BookingData.SerializeToString,
+            'GetMoviesByDate': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetMoviesByDate,
+                    request_deserializer=protos_dot_showtime__pb2.Date.FromString,
+                    response_serializer=protos_dot_showtime__pb2.Schedule.SerializeToString,
             ),
-            'GetBookingByUserId': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetBookingByUserId,
-                    request_deserializer=user__pb2.UserID.FromString,
-                    response_serializer=booking__pb2.BookingData.SerializeToString,
+            'GetTimes': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetTimes,
+                    request_deserializer=protos_dot_base__pb2.Empty.FromString,
+                    response_serializer=protos_dot_movie__pb2.MovieID.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Booking', rpc_method_handlers)
+            'Showtime', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Booking(object):
+class Showtime(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetAllBookings(request,
+    def GetMoviesByDate(request,
             target,
             options=(),
             channel_credentials=None,
@@ -77,14 +77,14 @@ class Booking(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/Booking/GetAllBookings',
-            base__pb2.Empty.SerializeToString,
-            booking__pb2.BookingData.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Showtime/GetMoviesByDate',
+            protos_dot_showtime__pb2.Date.SerializeToString,
+            protos_dot_showtime__pb2.Schedule.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetBookingByUserId(request,
+    def GetTimes(request,
             target,
             options=(),
             channel_credentials=None,
@@ -94,8 +94,8 @@ class Booking(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Booking/GetBookingByUserId',
-            user__pb2.UserID.SerializeToString,
-            booking__pb2.BookingData.FromString,
+        return grpc.experimental.unary_stream(request, target, '/Showtime/GetTimes',
+            protos_dot_base__pb2.Empty.SerializeToString,
+            protos_dot_movie__pb2.MovieID.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

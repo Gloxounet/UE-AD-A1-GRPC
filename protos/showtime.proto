@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "base.proto";
-import "movie.proto";
+import "protos/base.proto";
+import "protos/movie.proto";
 
 service Showtime {
     rpc GetMoviesByDate(Date) returns (Schedule) {}
