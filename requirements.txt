@@ -1,6 +1,6 @@
-grpcio==1.47.0
-grpcio-tools==1.47.0
-protobuf==3.20.1
+grpcio==1.49.1
+grpcio-tools==1.49.1
+protobuf==4.21.6
 six==1.16.0
 certifi==2021.5.30
 charset-normalizer==2.0.3
@@ -13,4 +13,4 @@ MarkupSafe==2.0.1
 requests==2.26.0
 urllib3==1.26.6
 Werkzeug==2.0.1
-
+grpyc==0.1.3

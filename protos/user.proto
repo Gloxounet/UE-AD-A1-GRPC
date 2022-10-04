@@ -5,7 +5,6 @@ import "protos/base.proto";
 service User {
     rpc GetAllUsers(Empty) returns (stream UserItem) {}
     rpc GetUserById(UserID) returns (UserItem) {}
-    //rpc GetBookings() returns (){}
 }
 
 message UserItem {
