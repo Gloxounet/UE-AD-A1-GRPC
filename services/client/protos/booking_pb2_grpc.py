@@ -4,7 +4,6 @@ import grpc
 
 from protos import base_pb2 as protos_dot_base__pb2
 from protos import booking_pb2 as protos_dot_booking__pb2
-from protos import user_pb2 as protos_dot_user__pb2
 
 
 class BookingStub(object):
@@ -23,7 +22,7 @@ class BookingStub(object):
                 )
         self.GetBookingByUserId = channel.unary_unary(
                 '/Booking/GetBookingByUserId',
-                request_serializer=protos_dot_user__pb2.UserID.SerializeToString,
+                request_serializer=protos_dot_base__pb2.UserID.SerializeToString,
                 response_deserializer=protos_dot_booking__pb2.BookingData.FromString,
                 )
 
@@ -53,7 +52,7 @@ def add_BookingServicer_to_server(servicer, server):
             ),
             'GetBookingByUserId': grpc.unary_unary_rpc_method_handler(
                     servicer.GetBookingByUserId,
-                    request_deserializer=protos_dot_user__pb2.UserID.FromString,
+                    request_deserializer=protos_dot_base__pb2.UserID.FromString,
                     response_serializer=protos_dot_booking__pb2.BookingData.SerializeToString,
             ),
     }
@@ -95,7 +94,7 @@ class Booking(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Booking/GetBookingByUserId',
-            protos_dot_user__pb2.UserID.SerializeToString,
+            protos_dot_base__pb2.UserID.SerializeToString,
             protos_dot_booking__pb2.BookingData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

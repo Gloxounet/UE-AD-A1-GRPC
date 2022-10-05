@@ -3,6 +3,7 @@
 import grpc
 
 from protos import base_pb2 as protos_dot_base__pb2
+from protos import booking_pb2 as protos_dot_booking__pb2
 from protos import user_pb2 as protos_dot_user__pb2
 
 
@@ -22,8 +23,13 @@ class UserStub(object):
                 )
         self.GetUserById = channel.unary_unary(
                 '/User/GetUserById',
-                request_serializer=protos_dot_user__pb2.UserID.SerializeToString,
+                request_serializer=protos_dot_base__pb2.UserID.SerializeToString,
                 response_deserializer=protos_dot_user__pb2.UserItem.FromString,
+                )
+        self.GetUserBookings = channel.unary_unary(
+                '/User/GetUserBookings',
+                request_serializer=protos_dot_base__pb2.UserID.SerializeToString,
+                response_deserializer=protos_dot_booking__pb2.BookingData.FromString,
                 )
 
 
@@ -42,6 +48,12 @@ class UserServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetUserBookings(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -52,8 +64,13 @@ def add_UserServicer_to_server(servicer, server):
             ),
             'GetUserById': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserById,
-                    request_deserializer=protos_dot_user__pb2.UserID.FromString,
+                    request_deserializer=protos_dot_base__pb2.UserID.FromString,
                     response_serializer=protos_dot_user__pb2.UserItem.SerializeToString,
+            ),
+            'GetUserBookings': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserBookings,
+                    request_deserializer=protos_dot_base__pb2.UserID.FromString,
+                    response_serializer=protos_dot_booking__pb2.BookingData.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -94,7 +111,24 @@ class User(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/User/GetUserById',
-            protos_dot_user__pb2.UserID.SerializeToString,
+            protos_dot_base__pb2.UserID.SerializeToString,
             protos_dot_user__pb2.UserItem.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetUserBookings(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/User/GetUserBookings',
+            protos_dot_base__pb2.UserID.SerializeToString,
+            protos_dot_booking__pb2.BookingData.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

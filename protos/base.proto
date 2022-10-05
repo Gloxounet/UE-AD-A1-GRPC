@@ -2,3 +2,7 @@ syntax = "proto3";
 
 message Empty {
 }
+
+message UserID {
+    string id = 1;
+}

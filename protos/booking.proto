@@ -1,6 +1,5 @@
 syntax = "proto3";
 import "protos/base.proto";
-import "protos/user.proto";
 import "protos/showtime.proto";
 
 service Booking {
@@ -9,6 +8,6 @@ service Booking {
 }
 
 message BookingData {
-    UserID userId = 1;
+    string userId = 1;
     repeated Schedule date = 2;
 }

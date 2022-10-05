@@ -10,6 +10,8 @@ from protos import showtime_pb2
 from protos import showtime_pb2_grpc
 
 from protos import user_pb2
+from protos import user_pb2_grpc
+
 from protos import base_pb2
 
 #MOVIES
@@ -72,7 +74,7 @@ def run2():
         stub = booking_pb2_grpc.BookingStub(channel)
         
         print("-------------- GetBookingById --------------")
-        userId = user_pb2.UserID(id="dwight_schrute")
+        userId = base_pb2.UserID(id="dwight_schrute")
         get_booking_by_userId(stub=stub,userId=userId)
 
                 
@@ -97,7 +99,43 @@ def run3():
         date = showtime_pb2.Date(date="20151202")
         get_movies_by_date(stub=stub, date=date)
 
+
         channel.close()
 
+
+# Users
+def get_user_by_id(stub:user_pb2_grpc.UserStub,userId:base_pb2.UserID):
+    user = stub.GetUserById(userId)
+    print(user)
+    return user
+
+def get_list_users(stub):
+    users = stub.GetAllUsers(base_pb2.Empty())
+    for user in users :
+        print(user)
+    return users
+
+def get_user_bookings(stub:user_pb2_grpc.UserStub,userId:base_pb2.UserID):
+    booking = stub.GetUserBookings(userId)
+    return booking
+
+def run4():
+    with grpc.insecure_channel('localhost:3004') as channel:
+        stub = user_pb2_grpc.UserStub(channel)
+
+        # print("-------------- GetUserById --------------")
+        # userId = base_pb2.UserID(id="jim_halpert")
+        # get_user_by_id(stub,userId)
+
+        # print("-------------- GetAllUsers --------------")
+        # get_list_users(stub)
+
+        print("-------------- GetUserBookings --------------")
+        userId = base_pb2.UserID(id="dwight_schrute")
+        get_user_bookings(stub,userId)
+
+        channel.close()
+
+
 if __name__ == '__main__':
-    run2()
+    run4()

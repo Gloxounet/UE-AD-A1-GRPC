@@ -5,7 +5,6 @@ from protos import booking_pb2
 from protos import booking_pb2_grpc
 from protos import showtime_pb2
 from protos import movie_pb2
-from protos import user_pb2
 
 import json
 
@@ -23,7 +22,7 @@ def createBookingItem(booking):
                         createScheduleItem(date=date["date"],movies=date["movies"]),
                     booking["dates"]
                 ))
-    booking_data = booking_pb2.BookingData(userId=user_pb2.UserID(id=booking['userid']))
+    booking_data = booking_pb2.BookingData(userId=booking['userid'])
     booking_data.date.extend(dates)
     return booking_data
 
