@@ -15,10 +15,11 @@ from protos import user_pb2_grpc
 
 from protos import base_pb2
 
+#MOVIES
+# Future implementation for movie service
 def movie_id_callback(call_future):
     print(call_future.result())
 
-#MOVIES
 def get_movie_by_id(stub:movie_pb2_grpc.MovieStub, id):
     movie = stub.GetMovieByID.future(id)
     movie.add_done_callback(movie_id_callback)
@@ -38,6 +39,7 @@ def get_movies_by_director(stub:movie_pb2_grpc.MovieStub,director):
     for movie in movies :
         print(f"Found {movie}")
 
+# Movie service tester
 def run():
     # NOTE(gRPC Python Team): .close() is possible on a channel and should be
     # used in circumstances in which the with statement does not fit the needs
@@ -62,6 +64,8 @@ def run():
 
         channel.close()
 
+
+
 #BOOKINGS
 def get_booking_by_userId(stub:booking_pb2_grpc.BookingStub,userId):
     booking = stub.GetBookingByUserId(userId)
@@ -72,6 +76,7 @@ def get_list_bookings(stub:booking_pb2_grpc.BookingStub):
     for booking in bookings:
         print("Booking from %s" % (booking.userId))
 
+# Booking service tester
 def run2():
     with grpc.insecure_channel('localhost:3002') as channel:
         stub = booking_pb2_grpc.BookingStub(channel)
@@ -89,11 +94,12 @@ def run2():
         channel.close()
 
 
+#SHOWTIME
 def get_movies_by_date(stub, date):
     movies = stub.GetMoviesByDate(date)
     print(movies)
 
-
+# Showtime service tester
 def run3():
     with grpc.insecure_channel('localhost:3003') as channel:
         stub = showtime_pb2_grpc.ShowtimeStub(channel)
@@ -106,7 +112,7 @@ def run3():
         channel.close()
 
 
-# Users
+#USER
 def get_user_by_id(stub:user_pb2_grpc.UserStub,userId:base_pb2.UserID):
     user = stub.GetUserById(userId)
     print(user)
@@ -122,6 +128,7 @@ def get_user_bookings(stub:user_pb2_grpc.UserStub,userId:base_pb2.UserID):
     booking = stub.GetUserBookings(userId)
     return booking
 
+#User service tester
 def run4():
     with grpc.insecure_channel('localhost:3004') as channel:
         stub = user_pb2_grpc.UserStub(channel)
@@ -141,4 +148,8 @@ def run4():
 
 
 if __name__ == '__main__':
-    run()
+    # run()
+    # run2()
+    # run3()
+    # run4()
+    pass

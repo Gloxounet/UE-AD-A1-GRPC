@@ -3,18 +3,14 @@ from concurrent import futures
 
 from protos import user_pb2
 from protos import user_pb2_grpc
-from protos import booking_pb2_grpc
-
-from protos import booking_pb2
 from protos import base_pb2
+
+# To make calls on booking
+from protos import booking_pb2_grpc
 
 import json
 
-#Booking getters
-def get_booking_by_userId(stub:booking_pb2_grpc.BookingStub,userId:base_pb2.UserID):
-    booking = stub.GetBookingByUserId(userId)
-    return booking
-
+# Create a UserItem (see user.proto) from data structure used in data/users.json
 def createUserItem(user):
    return user_pb2.UserItem(
       id=str(user["id"]),
@@ -22,9 +18,14 @@ def createUserItem(user):
       lastactive=str(user["last_active"])
    )
 
+# Function to open grpc connection
 def openConnection(serviceUrl) :
    return grpc.insecure_channel(serviceUrl)
 
+# "Client" booking getter for Servicer on call GetUserBookings
+def get_booking_by_userId(stub:booking_pb2_grpc.BookingStub,userId:base_pb2.UserID):
+    booking = stub.GetBookingByUserId(userId)
+    return booking
 
 class UserServicer(user_pb2_grpc.UserServicer):
 
@@ -51,7 +52,6 @@ class UserServicer(user_pb2_grpc.UserServicer):
 
          return booking
 
- 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     user_pb2_grpc.add_UserServicer_to_server(UserServicer(), server)

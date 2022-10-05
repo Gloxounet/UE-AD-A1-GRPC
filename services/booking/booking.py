@@ -45,7 +45,8 @@ class BookingServicer(booking_pb2_grpc.BookingServicer):
     def GetAllBookings(self, request, context):
         for booking in self.db:
             yield createBookingItem(booking)
- 
+
+# Main method to run service on port 3002
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     booking_pb2_grpc.add_BookingServicer_to_server(BookingServicer(), server)
