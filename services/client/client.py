@@ -1,3 +1,4 @@
+from subprocess import call
 import grpc
 
 from protos import movie_pb2
@@ -14,14 +15,16 @@ from protos import user_pb2_grpc
 
 from protos import base_pb2
 
+def movie_id_callback(call_future):
+    print(call_future.result())
+
 #MOVIES
 def get_movie_by_id(stub:movie_pb2_grpc.MovieStub, id):
-    movie = stub.GetMovieByID(id)
-    print(movie)
-
+    movie = stub.GetMovieByID.future(id)
+    movie.add_done_callback(movie_id_callback)
 
 def get_list_movies(stub:movie_pb2_grpc.MovieStub):
-    allmovies = stub.GetListMovies(movie_pb2.Empty())
+    allmovies = stub.GetListMovies(base_pb2.Empty())
     for movie in allmovies:
         print("Movie called %s" % (movie.title))
 
@@ -123,12 +126,12 @@ def run4():
     with grpc.insecure_channel('localhost:3004') as channel:
         stub = user_pb2_grpc.UserStub(channel)
 
-        # print("-------------- GetUserById --------------")
-        # userId = base_pb2.UserID(id="jim_halpert")
-        # get_user_by_id(stub,userId)
+        print("-------------- GetUserById --------------")
+        userId = base_pb2.UserID(id="jim_halpert")
+        get_user_by_id(stub,userId)
 
-        # print("-------------- GetAllUsers --------------")
-        # get_list_users(stub)
+        print("-------------- GetAllUsers --------------")
+        get_list_users(stub)
 
         print("-------------- GetUserBookings --------------")
         userId = base_pb2.UserID(id="dwight_schrute")
@@ -138,4 +141,4 @@ def run4():
 
 
 if __name__ == '__main__':
-    run4()
+    run()

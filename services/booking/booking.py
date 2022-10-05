@@ -3,11 +3,14 @@ from concurrent import futures
 
 from protos import booking_pb2
 from protos import booking_pb2_grpc
+
+# Import des types
 from protos import showtime_pb2
 from protos import movie_pb2
 
 import json
 
+# Crée un élément de type Schedule (voir showtime.proto) à partir d'une date et d'une liste de film
 def createScheduleItem(date,movies)->showtime_pb2.Schedule:
     item:showtime_pb2.Schedule = showtime_pb2.Schedule(
         date=showtime_pb2.Date(date=date)
@@ -16,6 +19,7 @@ def createScheduleItem(date,movies)->showtime_pb2.Schedule:
     item.movies.extend(movies)
     return item
 
+# Crée un élément de type Booking (voir booking.proto) à partir de la structure de donnée utilisée dans data/booking.json
 def createBookingItem(booking):
     dates = list(map(
                     lambda date:
@@ -25,8 +29,6 @@ def createBookingItem(booking):
     booking_data = booking_pb2.BookingData(userId=booking['userid'])
     booking_data.date.extend(dates)
     return booking_data
-
-
 
 class BookingServicer(booking_pb2_grpc.BookingServicer):
 
