@@ -148,8 +148,8 @@ def run4():
 
 
 if __name__ == '__main__':
-    # run()
-    # run2()
-    # run3()
-    # run4()
+    run()
+    run2()
+    run3()
+    run4()
     pass
