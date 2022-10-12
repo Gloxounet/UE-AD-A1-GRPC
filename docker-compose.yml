@@ -7,13 +7,12 @@ services:
   showtime:
     build: ./services/showtime/
     ports:
-      - "3002:3002"
+      - "3003:3003"
   booking:
     build: ./services/booking/
     ports:
-        - "3003:3003"
+      - "3002:3002"
   user:
     build: ./services/user/
     ports:
-        - "3004:3004"
-
+      - "3004:3004"

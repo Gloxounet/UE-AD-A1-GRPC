@@ -49,7 +49,6 @@ class UserServicer(user_pb2_grpc.UserServicer):
          stub = booking_pb2_grpc.BookingStub(channel)
          userId = base_pb2.UserID(id=request.id)
          booking = get_booking_by_userId(stub,userId)
-
          return booking
 
 def serve():

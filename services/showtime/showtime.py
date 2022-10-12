@@ -2,6 +2,8 @@ import grpc
 from concurrent import futures
 from protos import showtime_pb2
 from protos import showtime_pb2_grpc
+
+from protos import movie_pb2
 import json
 
 class ShowtimeServicer(showtime_pb2_grpc.ShowtimeServicer):
@@ -14,10 +16,10 @@ class ShowtimeServicer(showtime_pb2_grpc.ShowtimeServicer):
         for date in self.db:
             if date['date'] == request.date:
                 print("Date found!")
-                schedule = showtime_pb2.Schedule(date=date["date"])
-                schedule.movies.extend(date['movies'])
+                schedule = showtime_pb2.Schedule(date=showtime_pb2.Date(date=date["date"]))
+                schedule.movies.extend([movie_pb2.MovieID(id=movie) for movie in date['movies']])
                 return schedule
-        return showtime_pb2.Schedule(date="", movie="")
+        return showtime_pb2.Schedule(date="")
 
     def GetTimes(self, request, context):
         for date in self.db:

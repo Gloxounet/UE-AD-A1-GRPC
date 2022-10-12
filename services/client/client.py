@@ -126,6 +126,7 @@ def get_list_users(stub):
 
 def get_user_bookings(stub:user_pb2_grpc.UserStub,userId:base_pb2.UserID):
     booking = stub.GetUserBookings(userId)
+    print(booking)
     return booking
 
 #User service tester
