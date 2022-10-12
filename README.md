@@ -4,25 +4,6 @@
 
 BOËLLE Octave GLOCK Matteo
 
-# How to compile a service ?
-
-## Under a windows terminal :
-
-You can use the python module we made and that is included in requirements.txt : `grpyc`
-
-To build every services and compile them in the client :
-`grpyc -cc`
-
-To run a specific service :
-`grpyc -s service_name`
-
-To see other commands :
-`grpyc --help`
-
-## Otherwise :
-
-Follow grpcio for python documentation
-
 # File structuration :
 
 ```
@@ -66,3 +47,22 @@ import "protos/base.proto";
 # How to create Docker images with docker-compose :
 
 #TODO
+
+# How to compile a service ?
+
+## Under a windows terminal :
+
+You can use the python module we made and that is included in requirements.txt : `grpyc`
+
+To build every services and compile them in the client :
+`grpyc -cc`
+
+To run a specific service :
+`grpyc -s service_name`
+
+To see other commands :
+`grpyc --help`
+
+## Otherwise :
+
+Follow grpcio for python documentation
