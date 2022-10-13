@@ -45,7 +45,7 @@ class UserServicer(user_pb2_grpc.UserServicer):
          yield createUserItem(user)
       
    def GetUserBookings(self, request, context):
-      with openConnection('localhost:3002') as channel :
+      with openConnection('booking:3002') as channel :
          stub = booking_pb2_grpc.BookingStub(channel)
          userId = base_pb2.UserID(id=request.id)
          booking = get_booking_by_userId(stub,userId)

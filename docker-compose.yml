@@ -1,18 +1,24 @@
 version: "3.9"
 services:
   movie:
-    build: ./services/movie/
+    build: services/movie/
     ports:
       - "3001:3001"
   showtime:
-    build: ./services/showtime/
-    ports:
-      - "3003:3003"
-  booking:
-    build: ./services/booking/
+    build: services/showtime/
     ports:
       - "3002:3002"
+  booking:
+    build: services/booking/
+    ports:
+      - "3003:3003"
+    depends_on:
+      - showtime
+
   user:
-    build: ./services/user/
+    build: services/user/
     ports:
       - "3004:3004"
+    depends_on:
+      - booking
+      - movie

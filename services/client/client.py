@@ -68,6 +68,7 @@ def run():
 
 #BOOKINGS
 def get_booking_by_userId(stub:booking_pb2_grpc.BookingStub,userId):
+    print("test")
     booking = stub.GetBookingByUserId(userId)
     print(booking)
 
@@ -78,7 +79,7 @@ def get_list_bookings(stub:booking_pb2_grpc.BookingStub):
 
 # Booking service tester
 def run2():
-    with grpc.insecure_channel('localhost:3002') as channel:
+    with grpc.insecure_channel('localhost:3003') as channel:
         stub = booking_pb2_grpc.BookingStub(channel)
         
         print("-------------- GetBookingById --------------")
@@ -101,7 +102,7 @@ def get_movies_by_date(stub, date):
 
 # Showtime service tester
 def run3():
-    with grpc.insecure_channel('localhost:3003') as channel:
+    with grpc.insecure_channel('localhost:3002') as channel:
         stub = showtime_pb2_grpc.ShowtimeStub(channel)
 
         print("-------------- GetMoviesByDate --------------")
